@@ -65,7 +65,11 @@ button:focus,button:focus-visible,select:focus{outline:none!important}
 @media(max-width:850px){.topbar{gap:8px}.top-actions{gap:6px}.autosave-toggle{font-size:9px;padding:8px 8px}.mobile-nav button{font-size:8px!important}}
 @media(max-width:390px){.autosave-toggle{max-width:122px;line-height:1.2}.mobile-nav button{font-size:7px!important}}
 
-</style></head>
+</style><link rel="manifest" href="/my-space/manifest.json">
+<meta name="theme-color" content="#25344F">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="My Space">
+<link rel="icon" href="/my-space/icon.svg" type="image/svg+xml"></head>
 <body>
 <div class="app">
 <aside class="sidebar"><div class="brand"><h1>My Space<span style="color:#d5b893">.</span></h1><small>PERSONAL ORGANIZER</small></div>
@@ -201,4 +205,11 @@ if('Notification' in window && Notification.permission==='default'){
   },{once:true});
 }
 setInterval(checkReminders,20000);
+</script><script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/my-space/service-worker.js")
+      .catch(console.error);
+  });
+}
 </script></body></html>
