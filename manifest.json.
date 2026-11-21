@@ -1,0 +1,20 @@
+{
+  "id": "/my-space/",
+  "name": "My Space",
+  "short_name": "My Space",
+  "description": "Seu cantinho pessoal de organização e planejamento.",
+  "start_url": "/my-space/",
+  "scope": "/my-space/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#F4EBDD",
+  "theme_color": "#25344F",
+  "icons": [
+    {
+      "src": "/my-space/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
