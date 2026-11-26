@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f8dce9">
+<meta name="description" content="Seu cantinho fofo para organizar os estudos.">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<title>Study Bloom 🌸</title>
+<style>
+:root{--bg:#fff8fc;--panel:#fff;--ink:#51445a;--muted:#98899e;--line:#f1e4ef;--pink:#f4b8d1;--purple:#c9b9f5;--blue:#b9d9f5;--mint:#bde8d8;--yellow:#f8e2a9;--coral:#f7c5b9;--shadow:0 10px 28px #8d66851a;--deep:#8d6b9b}
+[data-theme=dark]{--bg:#211d2b;--panel:#302a3c;--ink:#f7effa;--muted:#b7a9c1;--line:#494054;--pink:#9e6687;--purple:#806cae;--blue:#54799a;--mint:#548b7c;--yellow:#a78a4e;--coral:#a86f65;--shadow:0 12px 30px #0003;--deep:#d6b5e4}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 10% 0%,#fce5ef 0,transparent 28%),radial-gradient(circle at 100% 20%,#e8e1ff 0,transparent 26%),var(--bg);color:var(--ink);font-family:ui-rounded,"Trebuchet MS",system-ui,sans-serif;transition:background .35s,color .35s}
+button,input,textarea,select{font:inherit;color:inherit}button{border:0;cursor:pointer}
+.app{max-width:1100px;margin:auto;padding:18px 16px 100px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:4px 0 20px}
+.brand{display:flex;align-items:center;gap:11px}.logo{width:48px;height:48px;border-radius:17px;background:linear-gradient(145deg,#ffd5e7,#d8caff);display:grid;place-items:center;font-size:27px;box-shadow:inset 0 3px 5px #fff9,0 5px 0 #d7b4d1,0 10px 18px #a77caa33}
+h1{font-size:22px;margin:0;letter-spacing:-.7px}.sub{font-size:12px;color:var(--muted);margin-top:2px}
+.iconbtn,.pillbtn{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:11px 13px;box-shadow:0 4px 0 var(--line),var(--shadow);transition:.18s transform,.18s box-shadow}
+.iconbtn:active,.pillbtn:active,.action:active{transform:translateY(4px);box-shadow:0 0 0 transparent}
+.topactions{display:flex;gap:9px}
+.greeting{background:linear-gradient(115deg,#f9dce9,#e8ddff 60%,#dff3ed);color:#5d4b67;border-radius:25px;padding:20px;display:flex;align-items:center;justify-content:space-between;gap:12px;box-shadow:var(--shadow);overflow:hidden;position:relative}
+.greeting h2{font-size:21px;margin:0 0 5px}.greeting p{margin:0;font-size:13px;opacity:.8}.mascot{font-size:64px;filter:drop-shadow(0 6px 4px #8b668833);animation:bob 3s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-8px) rotate(5deg)}}@keyframes pop{0%{transform:scale(.92);opacity:.4}100%{transform:scale(1);opacity:1}}@keyframes slidein{from{transform:translateY(18px);opacity:0}to{transform:none;opacity:1}}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px;margin-top:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:16px;box-shadow:var(--shadow);animation:slidein .35s both}
+.card h3{font-size:15px;margin:0 0 12px;display:flex;align-items:center;justify-content:space-between}
+.stat{grid-column:span 3;min-height:108px}.stat .num{font-size:26px;font-weight:850}.stat small{display:block;color:var(--muted);font-size:12px;margin-top:4px}
+.wide{grid-column:span 8}.side{grid-column:span 4}.full{grid-column:1/-1}
+.sectionhead{display:flex;align-items:center;justify-content:space-between;margin:23px 2px 10px}.sectionhead h2{font-size:17px;margin:0}
+.action{background:linear-gradient(145deg,#f8c9df,#e4d7ff);color:#5a4966;padding:10px 14px;border-radius:14px;font-weight:750;box-shadow:0 4px 0 #d1b8d8,0 7px 14px #a780a522;transition:.18s}
+.action.alt{background:linear-gradient(145deg,#cceee2,#cfe3fb);box-shadow:0 4px 0 #b5d5d6}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+.tabs{display:flex;gap:7px;overflow:auto;padding:4px 2px 10px;scrollbar-width:none}.tab{white-space:nowrap;background:var(--panel);border:1px solid var(--line);padding:9px 13px;border-radius:13px;color:var(--muted);font-size:13px}.tab.active{background:var(--ink);color:var(--panel)}
+.view{display:none}.view.active{display:block;animation:pop .25s}
+.progress{height:9px;border-radius:99px;background:var(--line);overflow:hidden}.progress span{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#f3b8d2,#c7b8f5,#b8e5d6);transition:width .5s}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px}.muted{color:var(--muted);font-size:12px}
+.task{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}.task:last-child{border:0}.task input{accent-color:#c18dbb;width:18px;height:18px}.task.done .taskname{text-decoration:line-through;color:var(--muted)}.taskname{flex:1;font-size:13px}.tag{font-size:10px;border-radius:99px;padding:5px 8px;background:#f5e5f0;color:#805f80}
+input,textarea,select{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:11px;width:100%;outline:none}input:focus,textarea:focus,select:focus{border-color:#c6a5dc;box-shadow:0 0 0 3px #d9c3e633}textarea{min-height:110px;resize:vertical}
+.formrow{display:flex;gap:8px;margin:9px 0}.formrow>*{min-width:0}
+.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}.dayname{text-align:center;color:var(--muted);font-size:11px;padding:5px}.day{background:var(--bg);border:1px solid var(--line);border-radius:12px;min-height:54px;padding:6px;font-size:12px;text-align:left}.day.today{outline:2px solid #d7a8cf}.day.selected{background:#f5d9e8;color:#5c4660}.dots{display:flex;gap:3px;margin-top:6px}.dots i{width:5px;height:5px;border-radius:50%;background:#b58ac3}
+.subjects{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:9px}.subject{border-radius:16px;padding:12px;background:var(--tint);color:#51445a;text-align:left;box-shadow:0 4px 0 #0000000c;transition:.2s}.subject:active{transform:translateY(3px)}.subject b{display:block;font-size:13px}.subject small{font-size:10px;opacity:.7}
+.timer{text-align:center;padding:14px}.time{font-size:54px;font-weight:850;letter-spacing:-2px;margin:10px}.timer-ring{width:190px;height:190px;border-radius:50%;margin:5px auto 15px;display:grid;place-items:center;background:conic-gradient(#d6b5eb var(--pct),var(--line) 0);position:relative}.timer-ring:before{content:"";position:absolute;inset:10px;background:var(--panel);border-radius:50%}.timer-inner{z-index:1}
+.noteitem{padding:11px;border:1px solid var(--line);border-radius:14px;margin:8px 0;background:var(--bg)}.noteitem b{font-size:13px}.noteitem p{font-size:12px;color:var(--muted);white-space:pre-wrap;margin:6px 0 0}
+.empty{text-align:center;color:var(--muted);padding:18px;font-size:13px}
+.bottomnav{position:fixed;bottom:0;left:0;right:0;background:color-mix(in srgb,var(--panel) 92%,transparent);backdrop-filter:blur(16px);border-top:1px solid var(--line);display:flex;justify-content:center;gap:4px;padding:9px 5px calc(9px + env(safe-area-inset-bottom));z-index:5}
+.bottomnav button{background:transparent;color:var(--muted);font-size:10px;padding:7px 9px;border-radius:13px;display:grid;gap:3px;justify-items:center;min-width:52px}.bottomnav button span{font-size:19px}.bottomnav button.active{background:#f4e2ef;color:#775578}
+.toast{position:fixed;bottom:85px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--panel);padding:11px 16px;border-radius:14px;font-size:12px;opacity:0;pointer-events:none;transition:.3s;z-index:10}.toast.show{opacity:1;bottom:98px}
+.swipehint{font-size:11px;color:var(--muted);text-align:center;margin:10px}.drawer{max-height:0;overflow:hidden;transition:max-height .45s ease}.drawer.open{max-height:600px}.hidden{display:none!important}
+@media(max-width:700px){.app{padding:13px 12px 100px}.stat{grid-column:span 6}.wide,.side{grid-column:1/-1}.greeting{padding:17px}.greeting h2{font-size:18px}.mascot{font-size:52px}.bottomnav{justify-content:space-around}.bottomnav button{min-width:0;padding:7px 8px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header><div class="brand"><div class="logo">🌸</div><div><h1>Study Bloom</h1><div class="sub">seu cantinho de aprender ✨</div></div></div><div class="topactions"><button class="iconbtn" id="installBtn" title="Instalar Study Bloom" style="display:none">⬇️</button><button class="iconbtn" id="soundBtn" title="Sons relaxantes">🎵</button><button class="iconbtn" id="themeBtn" title="Alternar tema">🌙</button></div></header>
+<div class="greeting"><div><h2 id="hello">Oi, estudante! 💗</h2><p>Um passinho de cada vez. Você consegue!</p><p id="dateLine" style="margin-top:8px;font-weight:700"></p></div><div class="mascot" id="mascot">🐻‍❄️</div></div>
+<div class="grid" id="stats">
+ <div class="card stat"><div class="num" id="doneCount">0</div><small>tarefas concluídas 🌷</small></div>
+ <div class="card stat"><div class="num" id="studyCount">0m</div><small>tempo focado ⏳</small></div>
+ <div class="card stat"><div class="num" id="goalCount">0%</div><small>meta de hoje 🎯</small></div>
+ <div class="card stat"><div class="num" id="streakCount">1</div><small>dias de dedicação ✨</small></div>
+</div>
+<div class="sectionhead"><h2>Seu espaço de estudos</h2><span class="muted">deslize para explorar ↓</span></div>
+<div class="tabs" id="tabs">
+<button class="tab active" data-view="home">🏡 Início</button><button class="tab" data-view="calendar">🗓️ Calendário</button><button class="tab" data-view="tasks">✅ Tarefas</button><button class="tab" data-view="planner">📚 Cronograma</button><button class="tab" data-view="focus">⏱️ Foco</button><button class="tab" data-view="notes">📝 Caderno</button><button class="tab" data-view="reports">📊 Relatórios</button>
+</div>
+<main>
+<section class="view active" id="home">
+<div class="grid" style="margin-top:0">
+ <div class="card wide"><h3>✨ Próximas tarefas <button class="action" onclick="switchView('tasks')">Ver todas</button></h3><div id="homeTasks"></div></div>
+ <div class="card side"><h3>🎯 Meta de hoje</h3><div class="row"><b id="goalText">25 minutos</b><span class="muted" id="goalPercent">0%</span></div><div class="progress" style="margin:10px 0"><span id="goalBar" style="width:0%"></span></div><button class="action alt" onclick="switchView('focus')">Começar a focar</button></div>
+ <div class="card full"><h3>🌈 Minhas matérias <button class="action alt" onclick="switchView('planner')">Organizar</button></h3><div class="subjects" id="subjectTiles"></div></div>
+ <div class="card full"><h3>💌 Recadinho do mascote</h3><div class="row"><div><b id="mascotMessage">Você não precisa fazer tudo hoje. Só precisa começar!</b><p class="muted">Seu companheiro acredita no seu potencial.</p></div><div style="font-size:40px">🐻‍❄️</div></div></div>
+</div>
+</section>
+<section class="view" id="calendar">
+<div class="card"><div class="row"><h3>🗓️ Calendário de estudos</h3><div class="actions"><button class="iconbtn" onclick="moveMonth(-1)">‹</button><button class="iconbtn" onclick="moveMonth(1)">›</button></div></div><h3 id="monthLabel"></h3><div class="calendar" id="calendarGrid"></div><p class="muted" id="selectedDateLabel"></p><div id="dateTasks"></div><button class="action" onclick="quickTaskForDate()">＋ Adicionar tarefa neste dia</button></div>
+</section>
+<section class="view" id="tasks">
+<div class="card"><h3>✅ Lista de tarefas e atividades</h3><div class="formrow"><input id="taskInput" placeholder="Ex.: Revisar capítulo 3..."><button class="action" onclick="addTask()">Adicionar</button></div><div class="formrow"><select id="taskSubject"></select><input id="taskDate" type="date"></div><div id="taskList"></div></div>
+<div class="card" style="margin-top:14px"><h3>🧪 Provas e trabalhos</h3><div class="formrow"><input id="examInput" placeholder="Nome da prova ou trabalho"><button class="action alt" onclick="addExam()">Adicionar</button></div><div class="formrow"><select id="examSubject"></select><input id="examDate" type="date"></div><div id="examList"></div></div>
+</section>
+<section class="view" id="planner">
+<div class="card"><h3>📚 Cronograma semanal <button class="action" onclick="togglePlannerForm()">＋ Novo horário</button></h3><div class="drawer" id="plannerDrawer"><div class="formrow"><select id="planDay"><option>Segunda</option><option>Terça</option><option>Quarta</option><option>Quinta</option><option>Sexta</option><option>Sábado</option><option>Domingo</option></select><input id="planTime" type="time" value="16:00"></div><div class="formrow"><select id="planSubject"></select><input id="planDuration" type="number" min="10" value="40" placeholder="Minutos"></div><button class="action" onclick="addPlan()">Salvar horário</button></div><div id="weeklyPlan"></div></div>
+<div class="card" style="margin-top:14px"><h3>🪄 Planejamento automático</h3><p class="muted">Distribui suas matérias pelos dias da semana em blocos equilibrados. Você pode editar ou remover depois.</p><div class="formrow"><input id="autoMinutes" type="number" value="40" min="10" placeholder="Minutos por bloco"><button class="action alt" onclick="autoPlan()">Montar cronograma</button></div></div>
+<div class="card" style="margin-top:14px"><h3>🌼 Matérias</h3><div class="subjects" id="plannerSubjects"></div></div>
+</section>
+<section class="view" id="focus">
+<div class="card timer"><h3>⏱️ Cantinho da concentração</h3><div class="timer-ring" id="timerRing" style="--pct:100%"><div class="timer-inner"><div class="time" id="timerDisplay">25:00</div><div class="muted" id="timerMode">Hora de focar 🌱</div></div></div><div class="actions" style="justify-content:center"><button class="action" id="timerStart" onclick="toggleTimer()">▶ Começar</button><button class="action alt" onclick="resetTimer()">↻ Reiniciar</button></div><div class="formrow" style="max-width:320px;margin:16px auto"><select id="timerPreset" onchange="setPreset()"><option value="25">Foco — 25 min</option><option value="45">Foco — 45 min</option><option value="15">Foco — 15 min</option><option value="5">Pausa — 5 min</option></select><select id="focusSubject"></select></div><p class="muted">Ao concluir um ciclo, seu tempo é registrado automaticamente. 🌟</p></div>
+<div class="card" style="margin-top:14px"><h3>🎧 Sons para relaxar</h3><p class="muted">Sons suaves gerados no próprio app. Toque para ligar ou desligar.</p><div class="actions"><button class="action alt" onclick="toggleAmbient()">🌧️ Chuvinha</button><button class="action alt" onclick="toggleAmbient(1)">🎐 Tons suaves</button><span class="muted" id="ambientStatus">Desligado</span></div></div>
+</section>
+<section class="view" id="notes">
+<div class="card"><h3>📝 Meu caderno de estudos</h3><input id="noteTitle" placeholder="Título da anotação"><div class="formrow"><select id="noteSubject"></select><select id="noteType"><option>Anotação</option><option>Resumo</option><option>Fichamento</option></select></div><textarea id="noteBody" placeholder="Escreva suas ideias, explicações e descobertas..."></textarea><button class="action" style="margin-top:9px" onclick="saveNote()">Salvar no caderno</button></div>
+<div class="card" style="margin-top:14px"><h3>📖 Anotações salvas</h3><input id="noteSearch" placeholder="Buscar no caderno..." oninput="renderNotes()"><div id="notesList"></div></div>
+</section>
+<section class="view" id="reports">
+<div class="grid" style="margin-top:0"><div class="card wide"><h3>📊 Seu progresso</h3><div class="row"><span class="muted">Tarefas concluídas</span><b id="reportTasks">0</b></div><div class="progress" style="margin:8px 0 16px"><span id="reportTaskBar"></span></div><div class="row"><span class="muted">Tempo total de foco</span><b id="reportTime">0 min</b></div><div class="row" style="margin-top:10px"><span class="muted">Sessões concluídas</span><b id="reportSessions">0</b></div></div><div class="card side"><h3>🌷 Seu jardim</h3><div style="font-size:43px;text-align:center" id="garden">🌱</div><p class="muted" style="text-align:center" id="gardenText">Cada sessão faz seu jardim crescer!</p></div><div class="card full"><h3>💡 Visão por matéria</h3><div id="subjectReport"></div></div></div>
+</section>
+</main>
+<div class="swipehint">Dica: deslize para cima/baixo para percorrer a página. 🌸</div>
+</div>
+<nav class="bottomnav"><button class="active" data-view="home"><span>🏡</span>Início</button><button data-view="calendar"><span>🗓️</span>Agenda</button><button data-view="tasks"><span>✅</span>Tarefas</button><button data-view="focus"><span>⏱️</span>Foco</button><button data-view="notes"><span>📝</span>Caderno</button><button data-view="reports"><span>📊</span>Progresso</button></nav>
+<div class="toast" id="toast"></div>
+<script>
+const subjects=['Matemática','Português','Biologia','História','Geografia','Química','Física','Inglês','Filosofia','Sociologia','Redação'];
+const colors=['#f8dce9','#e8ddff','#dcecff','#d9f1e7','#fff0c9','#ffe0d7','#e4e1ff','#d8eff2','#f6e2ef','#e7e8ff','#fce8d8'];
+const $=id=>document.getElementById(id);
+const today=()=>new Date().toISOString().slice(0,10);
+let data=JSON.parse(localStorage.getItem('studyBloom')||'null')||{tasks:[],exams:[],plans:[],notes:[],minutes:0,sessions:0,theme:'light',goal:25};
+let deferredInstallPrompt=null;\nwindow.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredInstallPrompt=e;$('installBtn').style.display='inline-block'});\n$('installBtn').addEventListener('click',async()=>{if(!deferredInstallPrompt){toast('Use o menu do Chrome e toque em Instalar app ou Adicionar à tela inicial.');return}deferredInstallPrompt.prompt();await deferredInstallPrompt.userChoice;deferredInstallPrompt=null;$('installBtn').style.display='none'});\nwindow.addEventListener('appinstalled',()=>toast('Study Bloom instalado! 🌸'));\nif('serviceWorker' in navigator && (location.protocol==='https:'||location.hostname==='localhost')){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));}\nlet selectedDate=today(),calDate=new Date(),timerTotal=1500,timerLeft=1500,timerInterval=null,ambient=null,audioCtx=null;
+function save(){localStorage.setItem('studyBloom',JSON.stringify(data));renderAll()}
+function toast(t){$('toast').textContent=t;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),2200)}
+function fillSelect(id){$(id).innerHTML=subjects.map(s=>`<option>${s}</option>`).join('')}
+['taskSubject','examSubject','planSubject','focusSubject','noteSubject'].forEach(fillSelect);
+$('dateLine').textContent=new Intl.DateTimeFormat('pt-BR',{weekday:'long',day:'numeric',month:'long'}).format(new Date());
+$('hello').textContent=['Oi, estudante! 💗','Seu cantinho floresce com você 🌷','Bora aprender um pouquinho? ✨'][new Date().getDay()%3];
+function switchView(v){document.querySelectorAll('.view').forEach(x=>x.classList.toggle('active',x.id===v));document.querySelectorAll('[data-view]').forEach(x=>x.classList.toggle('active',x.dataset.view===v));window.scrollTo({top:0,behavior:'smooth'});if(v==='calendar')renderCalendar()}
+document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>switchView(b.dataset.view)));
+function addTask(){let t=$('taskInput').value.trim();if(!t)return toast('Escreva uma tarefa primeiro 🌸');data.tasks.push({id:Date.now(),name:t,subject:$('taskSubject').value,date:$('taskDate').value||today(),done:false});$('taskInput').value='';save();toast('Tarefa adicionada! ✨')}
+function addExam(){let t=$('examInput').value.trim();if(!t)return toast('Dê um nome para a avaliação 🌼');data.exams.push({id:Date.now(),name:t,subject:$('examSubject').value,date:$('examDate').value||today()});$('examInput').value='';save();toast('Compromisso salvo! 📌')}
+function toggleTask(id){let t=data.tasks.find(x=>x.id===id);t.done=!t.done;save()}
+function delItem(type,id){data[type]=data[type].filter(x=>x.id!==id);save();toast('Item removido')}
+function taskHTML(t){return `<div class="task ${t.done?'done':''}"><input type="checkbox" ${t.done?'checked':''} onchange="toggleTask(${t.id})"><span class="taskname">${esc(t.name)} <span class="muted">· ${esc(t.subject)}</span></span><span class="tag">${fmtDate(t.date)}</span><button onclick="delItem('tasks',${t.id})">✕</button></div>`}
+function examHTML(t){return `<div class="task"><span>📌</span><span class="taskname"><b>${esc(t.name)}</b><br><span class="muted">${esc(t.subject)} · ${fmtDate(t.date)}</span></span><button onclick="delItem('exams',${t.id})">✕</button></div>`}
+function fmtDate(d){return d?d.split('-').reverse().slice(0,2).join('/'):''}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function renderTasks(){$('taskList').innerHTML=data.tasks.length?data.tasks.slice().sort((a,b)=>a.date.localeCompare(b.date)).map(taskHTML).join(''):'<div class="empty">Tudo tranquilo por aqui. Adicione sua primeira tarefa! 🌱</div>';$('homeTasks').innerHTML=data.tasks.filter(t=>!t.done).slice().sort((a,b)=>a.date.localeCompare(b.date)).slice(0,4).map(taskHTML).join('')||'<div class="empty">Nenhuma tarefa pendente. Que paz! 🌸</div>';$('examList').innerHTML=data.exams.length?data.exams.slice().sort((a,b)=>a.date.localeCompare(b.date)).map(examHTML).join(''):'<div class="empty">Suas provas e trabalhos aparecerão aqui.</div>'}
+function renderSubjects(){let tiles=subjects.map((s,i)=>`<button class="subject" style="--tint:${colors[i]}" onclick="openSubject('${s}')"><b>${s}</b><small>${data.tasks.filter(t=>t.subject===s&&!t.done).length} tarefas pendentes</small></button>`).join('');$('subjectTiles').innerHTML=tiles;$('plannerSubjects').innerHTML=tiles}
+function openSubject(s){$('noteSubject').value=s;$('noteTitle').value=s+' — ';switchView('notes')}
+function renderPlans(){let days=['Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'];$('weeklyPlan').innerHTML=days.map(d=>{let p=data.plans.filter(x=>x.day===d).sort((a,b)=>a.time.localeCompare(b.time));return `<div style="padding:10px 0;border-bottom:1px solid var(--line)"><b style="font-size:13px">${d}</b>${p.length?p.map(x=>`<div class="task"><span>🕒 ${x.time}</span><span class="taskname">${esc(x.subject)} · ${x.duration} min</span><button onclick="delItem('plans',${x.id})">✕</button></div>`).join(''):'<div class="muted" style="margin-top:6px">Dia livre 🌿</div>'}</div>`}).join('')}
+function togglePlannerForm(){$('plannerDrawer').classList.toggle('open')}
+function addPlan(){data.plans.push({id:Date.now(),day:$('planDay').value,time:$('planTime').value,subject:$('planSubject').value,duration:Math.max(10,+$('planDuration').value||40)});save();toast('Horário incluído! 📚')}
+function autoPlan(){let mins=Math.max(10,+$('autoMinutes').value||40),days=['Segunda','Terça','Quarta','Quinta','Sexta'];data.plans=data.plans.filter(p=>!p.auto);subjects.forEach((s,i)=>data.plans.push({id:Date.now()+i,day:days[i%5],time:['16:00','16:50','17:40'][Math.floor(i/5)]||'18:30',subject:s,duration:mins,auto:true}));save();toast('Seu cronograma foi montado! 🌈')}
+function renderCalendar(){let y=calDate.getFullYear(),m=calDate.getMonth(),first=new Date(y,m,1).getDay(),days=new Date(y,m+1,0).getDate();$('monthLabel').textContent=new Intl.DateTimeFormat('pt-BR',{month:'long',year:'numeric'}).format(calDate);let html=['D','S','T','Q','Q','S','S'].map(d=>`<div class="dayname">${d}</div>`).join('');for(let i=0;i<first;i++)html+='<div></div>';for(let d=1;d<=days;d++){let date=`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`,n=data.tasks.filter(t=>t.date===date&&!t.done).length+data.exams.filter(t=>t.date===date).length;html+=`<button class="day ${date===today()?'today':''} ${date===selectedDate?'selected':''}" onclick="selectDate('${date}')">${d}${n?`<div class="dots"><i></i><i></i></div>`:''}</button>`}$('calendarGrid').innerHTML=html;$('selectedDateLabel').textContent='Compromissos de '+fmtDate(selectedDate);let list=[...data.tasks.filter(t=>t.date===selectedDate).map(t=>taskHTML(t)),...data.exams.filter(t=>t.date===selectedDate).map(examHTML)];$('dateTasks').innerHTML=list.join('')||'<div class="empty">Nenhum compromisso neste dia 🌼</div>'}
+function moveMonth(n){calDate.setMonth(calDate.getMonth()+n);renderCalendar()}function selectDate(d){selectedDate=d;renderCalendar()}function quickTaskForDate(){$('taskDate').value=selectedDate;switchView('tasks');$('taskInput').focus()}
+function saveNote(){let title=$('noteTitle').value.trim(),body=$('noteBody').value.trim();if(!title||!body)return toast('Preencha o título e o conteúdo ✏️');data.notes.unshift({id:Date.now(),title,body,subject:$('noteSubject').value,type:$('noteType').value,date:today()});$('noteTitle').value='';$('noteBody').value='';save();toast('Salvo no seu caderno! 💌')}
+function renderNotes(){let q=($('noteSearch').value||'').toLowerCase(),arr=data.notes.filter(n=>(n.title+n.body+n.subject).toLowerCase().includes(q));$('notesList').innerHTML=arr.map(n=>`<div class="noteitem"><div class="row"><b>${esc(n.title)}</b><button onclick="delItem('notes',${n.id})">✕</button></div><div class="muted">${esc(n.type)} · ${esc(n.subject)} · ${fmtDate(n.date)}</div><p>${esc(n.body)}</p></div>`).join('')||'<div class="empty">Seu caderno está esperando suas ideias! 📖</div>'}
+function setPreset(){let m=+$('timerPreset').value;timerTotal=m*60;timerLeft=timerTotal;updateTimer()}
+function updateTimer(){$('timerDisplay').textContent=String(Math.floor(timerLeft/60)).padStart(2,'0')+':'+String(timerLeft%60).padStart(2,'0');$('timerRing').style.setProperty('--pct',(timerLeft/timerTotal*100)+'%')}
+function toggleTimer(){if(timerInterval){clearInterval(timerInterval);timerInterval=null;$('timerStart').textContent='▶ Continuar';return} $('timerStart').textContent='Ⅱ Pausar';timerInterval=setInterval(()=>{timerLeft--;updateTimer();if(timerLeft<=0){clearInterval(timerInterval);timerInterval=null;let mins=Math.round(timerTotal/60);data.minutes+=mins;data.sessions++;save();toast('Sessão concluída! Você arrasou! 🌟');$('timerStart').textContent='▶ Começar';if(ambient)beep()}},1000)}
+function resetTimer(){if(timerInterval)clearInterval(timerInterval);timerInterval=null;timerLeft=timerTotal;$('timerStart').textContent='▶ Começar';updateTimer()}
+function beep(){try{let c=new(window.AudioContext||window.webkitAudioContext)(),o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.frequency.value=660;g.gain.value=.08;o.start();o.stop(c.currentTime+.25)}catch(e){}}
+function toggleAmbient(kind=0){if(ambient){clearInterval(ambient);ambient=null;$('ambientStatus').textContent='Desligado';$('soundBtn').textContent='🎵';return}try{audioCtx=new(window.AudioContext||window.webkitAudioContext)();let osc=audioCtx.createOscillator(),gain=audioCtx.createGain();osc.type='sine';osc.frequency.value=kind?392:174;gain.gain.value=.012;osc.connect(gain);gain.connect(audioCtx.destination);osc.start();ambient=setInterval(()=>{if(audioCtx&&audioCtx.state==='suspended')audioCtx.resume()},1000);$('ambientStatus').textContent=kind?'Tons suaves ligados':'Chuvinha suave ligada';$('soundBtn').textContent='🔊'}catch(e){toast('Áudio não disponível neste navegador')}}
+$('soundBtn').onclick=()=>toggleAmbient(0);
+$('themeBtn').onclick=()=>{data.theme=data.theme==='dark'?'light':'dark';applyTheme();localStorage.setItem('studyBloom',JSON.stringify(data))};
+function applyTheme(){document.documentElement.dataset.theme=data.theme;$('themeBtn').textContent=data.theme==='dark'?'☀️':'🌙'}
+function renderReports(){let done=data.tasks.filter(t=>t.done).length,total=data.tasks.length;$('reportTasks').textContent=done+' / '+total;$('reportTaskBar').style.width=(total?done/total*100:0)+'%';$('reportTime').textContent=data.minutes+' min';$('reportSessions').textContent=data.sessions;$('garden').textContent=data.sessions>10?'🌳':data.sessions>5?'🌻':data.sessions>1?'🌷':'🌱';$('gardenText').textContent=data.sessions>10?'Seu jardim está florescendo!': 'Mais uma sessão e seu jardim cresce!';$('subjectReport').innerHTML=subjects.map((s,i)=>{let total=data.tasks.filter(t=>t.subject===s).length,done=data.tasks.filter(t=>t.subject===s&&t.done).length;return `<div style="margin:10px 0"><div class="row"><span style="font-size:12px">${s}</span><span class="muted">${done}/${total}</span></div><div class="progress"><span style="width:${total?done/total*100:0}%;background:${colors[i]}"></span></div></div>`}).join('')}
+function renderAll(){renderTasks();renderSubjects();renderPlans();renderNotes();renderReports();let done=data.tasks.filter(t=>t.done).length;$('doneCount').textContent=done;$('studyCount').textContent=data.minutes+'m';let pct=Math.min(100,Math.round(data.minutes/data.goal*100));$('goalCount').textContent=pct+'%';$('goalPercent').textContent=pct+'%';$('goalBar').style.width=pct+'%';$('goalText').textContent=data.goal+' minutos';$('streakCount').textContent=Math.min(30,Math.max(1,data.sessions));if($('calendar').classList.contains('active'))renderCalendar()}
+applyTheme();renderAll();updateTimer();$('taskDate').value=today();$('examDate').value=today();
+let startY=0;document.addEventListener('touchstart',e=>startY=e.touches[0].clientY,{passive:true});document.addEventListener('touchend',e=>{let dy=e.changedTouches[0].clientY-startY;if(Math.abs(dy)>100){let el=document.querySelector('.drawer');if(dy<0&&window.scrollY>30){/* natural scroll keeps the interface fluid */}else if(dy>0&&window.scrollY===0&&el)el.classList.remove('open')}},{passive:true});
+</script>
+</body></html>
